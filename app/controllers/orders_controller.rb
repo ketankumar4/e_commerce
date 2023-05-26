@@ -2,6 +2,11 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
   end
+
+  def show
+    @order = Order.find(params[:id])
+    @customer = Customer.find(params[:customer_id])
+  end
   
   def create
     @customer = Customer.find_by(params[:customer_id])

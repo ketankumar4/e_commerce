@@ -4,11 +4,23 @@
   <p> Welcome customer </p>
   <%= current_customer.email %>
 
+
+<h3> list of products </h3>
 <ul>
   <% @products.each do |product| %>
     <li>
       <%#= product.name %>
       <%= link_to product.name, seller_product_url(product.id,product.seller_id) %>
+    </li>
+  <% end %>
+</ul>
+
+<h3> products ordered </h3>
+<ul>
+  <% current_customer.orders.each do |order| %>
+    <li>
+      <%#= product.name %>
+      <%= link_to Product.find(order.product_id).name, customer_order_url(current_customer.id,order.id) %>
     </li>
   <% end %>
 </ul>
