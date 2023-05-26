@@ -5,5 +5,5 @@ class Product < ApplicationRecord
 
   belongs_to :seller
   belongs_to :product_category, optional: true
-  has_many :orders
+  has_many :orders, dependent: :destroy
 end
