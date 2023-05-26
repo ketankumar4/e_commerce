@@ -1,0 +1,21 @@
+<h1>Customers homepage</h1>
+<br />
+<% if customer_signed_in? %>
+  <p> Welcome customer </p>
+  <%= current_customer.email %>
+
+<ul>
+  <% @products.each do |product| %>
+    <li>
+      <%#= product.name %>
+      <%= link_to product.name, seller_product_url(product.id,product.seller_id) %>
+    </li>
+  <% end %>
+</ul>
+  
+  <%= button_to "logout", destroy_customer_session_path, method: :delete  %>
+<% else %>
+  <%= link_to "sign up", new_customer_registration_path %>
+  <br />
+  <%= link_to "log in", new_customer_session_path %>
+<% end %>

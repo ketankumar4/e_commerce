@@ -1,0 +1,63 @@
+<h1>Sellers index homepage</h1>
+<% if seller_signed_in? %>
+  <p> Welcome user
+  <%= current_seller.email %> </p>
+  <br />
+  <p> Add Product </p>
+
+  <%= form_with model: [ current_seller, current_seller.products.build ] do |form| %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+    <p>
+      <%= form.label :attachment %><br>
+      <%= form.text_area :attachment %>
+    </p>
+    <p>
+      <%= form.label :product_category_id %><br>
+      <%= form.text_area :product_category_id %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+
+  <br />
+
+  <p> <h2>Add product category </h2></p>
+  <%= form_with model: [ current_seller, current_seller.product_categories.build ] do |form| %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+<br />
+
+  <p> <strong> Product List </strong></p>
+  <ul>
+  <% current_seller.products.each do |prod| %>
+    <p>
+     <li> <%= prod.name %> </li>
+    </p>
+
+    <p>
+    <%= link_to "Destroy Product", [prod.seller, prod], data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure?"
+                } %>
+    </p>
+  <% end %>
+  </ul>
+  <%#= render 'products/form' %>
+  <%= button_to "Log out", destroy_seller_session_path, method: :delete, data: { turbo: false } %>
+  <br />
+  <%#= button_to "logout", destroy_seller_session_path, method: :delete  %>
+  
+
+<% else %>
+  <%= link_to "log in", new_seller_session_path %>
+<% end %>
